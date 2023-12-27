@@ -8,24 +8,27 @@
 </head>
 <body>
   <div id="container">
-    <div id="display"></div>
+    <div id="display">
+      <div class="display operator"></div>
+      <div class="display text"></div>
+    </div>
     <div id="container2">
       <div class="others button" id="ac">AC</div>
       <div class="others button" id="invert">+/-</div>
       <div class="others button" id="percent">%</div>
-      <div class="operator button" id="division">/</div>
+      <div class="operator button" data-operator="division" id="division">÷</div>
       <div class="number button" data-number="7" id="seven">7</div>
       <div class="number button" data-number="8" id="eight">8</div>
-      <div class="number button" data-number="9" id="nince">9</div>
-      <div class="operator button" id="multiply">x</div>
+      <div class="number button" data-number="9" id="nine">9</div>
+      <div class="operator button" data-operator="multiply" id="multiply">×</div>
       <div class="number button" data-number="4" id="four">4</div>
       <div class="number button" data-number="5" id="five">5</div>
       <div class="number button" data-number="6" id="six">6</div>
-      <div class="operator button" id="minus">-</div>
+      <div class="operator button" data-operator="subtract" id="minus">-</div>
       <div class="number button" data-number="1" id="one">1</div>
       <div class="number button" data-number="2" id="two">2</div>
       <div class="number button" data-number="3" id="three">3</div>
-      <div class="operator button" id="sum">+</div>
+      <div class="operator button" data-operator="add" id="sum">+</div>
       <div class="number button" data-number="0" id="zero">0</div>
       <div class="number button" data-number="." id="float">.</div>
       <div class="operator button" id="equal">=</div>
