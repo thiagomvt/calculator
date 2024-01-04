@@ -1,79 +1,77 @@
-// Operations functions
-let operation = {
-  a: '',
-  b: '',
-  add: function (a, b) {return a + b},
-  subtract: function(a, b) {return a - b},
-  multiply: function(a, b) {return a * b},
-  divide: function(a, b) {return a/b},
-}
-// function add(a, b) {return a + b};
-// function subtract(a, b) {return a - b};
-// function multiply(a, b) {return a * b};
-// function divide(a, b) {return a/b};
-
-// Variables to work on functions
 let a = undefined;
 let b = undefined;
+let result = undefined;
+let number = '';
 let operator = undefined;
+let operatorSymbol = ''; 
 
-// Updates text in display
-function displayText(text, selector){
+// Displays content on calculator
+function display(input, selector){
 let display = document.querySelector(selector);
-display.textContent = (text);
+display.textContent = (input);
 }
 
-// Get list of number elements
-let numbers = document.querySelectorAll('.number');
-numbers.forEach(function(element){
-  element.addEventListener('click', numberClick);
-});
+// Handles buttons clicks
 
-// Handles number buttons clicks
+let buttons = document.querySelector('#container2');
+buttons.addEventListener('click', (event) => {
+  let button = event.target
 
-let text = '';
+  switch (button.id){
+    case 'one':
+    case 'two':
+    case 'three':
+    case 'four':
+    case 'five':
+    case 'six':
+    case 'seven':
+    case 'eight':
+    case 'nine':
+    case 'zero':
+      number += button.textContent;
+      display(number, '.display.number');
+      break
+    
+    case 'float':
+      if (!number.includes('.')){
+        number += '.';
+        display(number, '.display.number');
+        break;
+      }
+ 
+    case 'ac':
+      number = '';
+      operator = undefined;
+      operatorSymbol = '';
+      display(operatorSymbol, '.display.operator');
+      display(number, '.display.number')
+      a = undefined;
+      b = undefined;
+      result = undefined;
+      break;
 
-function numberClick(event){
+    case 'equal':
+      operatorSymbol = '';
+      b = parseInt(number);
+      operate();
 
-  let number = event.target.dataset.number;
+      break;
 
-  switch (number){
-    case '1':
-      text += '1';
+    case 'invert':
+      number =  String(-(parseFloat(number)));
       break;
-    case '2':
-      text += '2';
+
+    case 'percent':
       break;
-    case '3':
-      text += '3';
-      break;
-    case '4':
-      text += '4';
-      break;
-    case '5':
-      text += '5';
-      break;
-    case '6':
-      text += '6';
-      break;
-    case '7':
-      text += '7';
-      break;
-    case '8':
-      text += '8';
-      break;
-    case '9':
-      text += '9';
-      break;
-    case '0':
-      text += '0';
-      break;
-    case '.':
-      text += '.';
-      break;
+    
+    case 'division':
+    case 'multiply':
+    case 'minus':
+    case 'sum':
+      operator = button.textContent;
+      display(operator, '.display.operator');
   }
-  displayText(text, '.display.text');
-}
+})
 
 // Get list of operator elements
 let operators = document.querySelectorAll('.operator');
@@ -81,46 +79,46 @@ operators.forEach(function(element){
   element.addEventListener('click', operatorClick);
 });
 
-// Records text as 
+// Handles something else
+
+
 
 function operatorClick(event){
+
   operator = event.target.dataset.operator;
-  let operatorText = '';
 
-  if (operation.a === ''){
-    operation.a = parseInt(text);
-  }else if (operation.a != ''){
-    operation.b = parseInt(text);
-    // result();
+  if (a === undefined){
+    a = parseInt(number);
+    number = '';
+
+  } else if (a != undefined && b === undefined){
+    b = parseInt(number);
+    operate();
+    number = '';
+ 
+  } else if (a != undefined && b != undefined){
+    a = result;
+    b = parseInt(number);
+    operate();
+    number = '';
   }
-
-  switch(operator){
-    case 'division':
-      operator = divide;
-      operatorText = '÷'
-      break;
-
-    case 'subtract':
-      operator = subtract;
-      operatorText = '-';
-      break;
-    
-    case 'multiply':
-      operator = multiply;
-      operatorText = '×'
-      break;
-    
-    case 'add':
-      operator = add;
-      operatorText = '+'
-      break;
-  }
-  displayText(operatorText, '.display.operator')
-  text = '';
-  
 }
 
-// function result(operator){
-//   let result = operation.operator();
-//    displayText(result);
-// }
+
+function operate(){
+  switch (operator){
+    case '÷':
+      result = a / b;
+      break;
+    case '-':
+      result = a - b;
+      break;
+    case '×':
+      result = a * b;
+      break;
+    case '+':
+      result = a + b;
+      break;
+  }
+  display(result, '.display.number');
+}

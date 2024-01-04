@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  box-sizing: content-box;
   border: 1px black solid;
   border-radius: 5px;
 }
@@ -33,7 +34,7 @@
   font-family: 'Roboto Mono', monospace;
 }
 
-.display.text{
+.display.number{
   width: 350px;
   height: 60px;
   background-color: inherit;
@@ -59,7 +60,7 @@
   color: wheat;
 }
 
-.number{
+.number.button{
   width: 100px;
   height: 70px;
   display: flex;
