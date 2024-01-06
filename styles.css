@@ -1,6 +1,5 @@
 #container{
   width: 450px;
-  height: 550px;
   background-color: rgb(88, 88, 88);
   display: flex;
   justify-content: center;
@@ -12,11 +11,11 @@
 
 #container2{
   display: flex;
-  width: 450px;
-  height: 430px;
+  box-sizing: content-box;
   flex-wrap: wrap;
   justify-content: space-around;
   margin: 0px 10px 0px 10px;
+  user-select: none;
 }
 
 #display{
@@ -28,8 +27,7 @@
   flex-direction: column;
   border-radius: 10px;
   border: 3px black solid;
-  /* justify-content: */
-  align-items: start;
+  align-items: end;
   padding: 0px 10px;
   font-family: 'Roboto Mono', monospace;
 }
@@ -40,6 +38,7 @@
   background-color: inherit;
   font-size: 60px;
   margin-bottom: 10px;
+  text-align: end;
 }
 
 .display.operator{
@@ -48,32 +47,45 @@
   padding: 0px;
   margin: 10px 5px 0px 0px;
   background-color: inherit;
-
+  text-align: end;
 }
 
 .others{
   width: 100px;
   height: 70px;
   display: flex;
-  gap: 5px;
+  gap: 2px;
   background-color: purple;
   color: wheat;
 }
+
+  .others:hover{
+    background-color: rgb(102, 0, 102);
+  }
 
 .number.button{
   width: 100px;
   height: 70px;
   display: flex;
-  gap: 5px;
+  gap: 2px;
   background-color: grey;
   color: wheat;
 }
+
+  .number.button:hover{
+    background-color: rgb(104, 104, 104);
+    color: wheat;
+  }
 
 .operator{
   width: 100px;
   height: 70px;
   background-color: darkorange;
-  gap: 5px;
+  gap: 2px;
+  }
+
+  .operator:hover{
+    background-color: rgb(221, 122, 0);
   }
 
 #zero{
@@ -87,4 +99,18 @@
   justify-content: center;
   align-items: center;
   border: 1px black solid;
+}
+
+#percent{
+  background-color: purple;
+  color: wheat;
+}
+#percent:hover{
+  background-color: rgb(102, 0, 102);
+}
+
+a{
+  text-decoration: none;
+  color: lightgrey;
+  padding: 2px;
 }

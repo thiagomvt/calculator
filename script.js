@@ -33,10 +33,16 @@ buttons.addEventListener('click', (event) => {
       break
     
     case 'float':
+      if (number === ''){
+        number += '0.';
+        display(number, '.display.number');
+        break;
+      }
       if (!number.includes('.')){
         number += '.';
         display(number, '.display.number');
         break;
+
       }
  
     case 'ac':
@@ -51,19 +57,17 @@ buttons.addEventListener('click', (event) => {
       break;
 
     case 'equal':
-      operatorSymbol = '';
-      b = parseInt(number);
+      b = parseFloat(number);
       operate();
-
+      operatorSymbol = '';
       break;
 
     case 'invert':
       number =  String(-(parseFloat(number)));
-      break;
-
-    case 'percent':
+      display(number, '.display.number');
       break;
     
+    case 'percent':
     case 'division':
     case 'multiply':
     case 'minus':
@@ -79,26 +83,23 @@ operators.forEach(function(element){
   element.addEventListener('click', operatorClick);
 });
 
-// Handles something else
-
-
 
 function operatorClick(event){
 
   operator = event.target.dataset.operator;
 
   if (a === undefined){
-    a = parseInt(number);
+    a = parseFloat(number);
     number = '';
 
-  } else if (a != undefined && b === undefined){
-    b = parseInt(number);
+  } else if (a != undefined && b === undefined ){
+    b = parseFloat(number);
     operate();
     number = '';
  
   } else if (a != undefined && b != undefined){
     a = result;
-    b = parseInt(number);
+    b = parseFloat(number);
     operate();
     number = '';
   }
@@ -108,7 +109,11 @@ function operatorClick(event){
 function operate(){
   switch (operator){
     case '÷':
+      if (b !== 0){
       result = a / b;
+      }else{
+        result = 'Error';
+      }
       break;
     case '-':
       result = a - b;
@@ -119,6 +124,9 @@ function operate(){
     case '+':
       result = a + b;
       break;
+    case '%':
+      result = a * b/100;
   }
   display(result, '.display.number');
+  display('', '.display.operator');
 }
