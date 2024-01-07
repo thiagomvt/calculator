@@ -3,7 +3,6 @@ let b = undefined;
 let result = undefined;
 let number = '';
 let operator = undefined;
-let operatorSymbol = ''; 
 
 // Displays content on calculator
 function display(input, selector){
@@ -15,8 +14,8 @@ display.textContent = (input);
 
 let buttons = document.querySelector('#container2');
 buttons.addEventListener('click', (event) => {
-  let button = event.target
-
+  
+  let button = event.target;
   switch (button.id){
     case 'one':
     case 'two':
@@ -46,20 +45,25 @@ buttons.addEventListener('click', (event) => {
       }
  
     case 'ac':
-      number = '';
-      operator = undefined;
-      operatorSymbol = '';
-      display(operatorSymbol, '.display.operator');
-      display(number, '.display.number')
-      a = undefined;
-      b = undefined;
-      result = undefined;
+      clear();
       break;
 
     case 'equal':
-      b = parseFloat(number);
-      operate();
-      operatorSymbol = '';
+      if (b === undefined ){
+        b = parseFloat(number);
+        operate();
+        a = result;
+        operator = event.target.dataset.operator
+        number = '';
+     
+      } else {
+        a = result;
+        b = parseFloat(number);
+        operate();
+        number = '';
+      }
+
+      display('', '.display.operator');
       break;
 
     case 'invert':
@@ -85,24 +89,35 @@ operators.forEach(function(element){
 
 
 function operatorClick(event){
-
-  operator = event.target.dataset.operator;
+  if (number !== ''){
 
   if (a === undefined){
     a = parseFloat(number);
+    operator = event.target.dataset.operator
     number = '';
 
-  } else if (a != undefined && b === undefined ){
+  } else if (b === undefined ){
     b = parseFloat(number);
     operate();
+    operator = event.target.dataset.operator
     number = '';
  
-  } else if (a != undefined && b != undefined){
+  } else {
     a = result;
     b = parseFloat(number);
     operate();
     number = '';
   }
+}}
+
+function clear (){
+  number = '';
+  operator = undefined;
+  display('', '.display.operator');
+  display(number, '.display.number')
+  a = undefined;
+  b = undefined;
+  result = undefined;
 }
 
 
@@ -127,6 +142,7 @@ function operate(){
     case '%':
       result = a * b/100;
   }
+  number = '';
   display(result, '.display.number');
   display('', '.display.operator');
 }
