@@ -49,7 +49,7 @@ buttons.addEventListener('click', (event) => {
       break;
 
     case 'equal':
-      if (b === undefined ){
+      if (b === undefined){
         b = parseFloat(number);
         operate();
         a = result;
@@ -68,7 +68,7 @@ buttons.addEventListener('click', (event) => {
 
     case 'invert':
       number =  String(-(parseFloat(number)));
-      display(number, '.display.number');
+        display(number, '.display.number');
       break;
     
     case 'percent':
@@ -143,6 +143,16 @@ function operate(){
       result = a * b/100;
   }
   number = '';
-  display(result, '.display.number');
-  display('', '.display.operator');
+
+  const resultToString = result.toString();
+  const resultArray = resultToString.split('.');
+  const decimalPlaces = resultArray[1]; 
+
+  if (resultToString.includes('.') && decimalPlaces.length > 4 ){
+    display(result.toFixed(4), '.display.number');
+    display('', '.display.operator');
+  }else{
+    display(result, '.display.number');
+    display('', '.display.operator');
+  }
 }
